@@ -42,7 +42,7 @@
 //// THEORY OF LIABILITY (CONTRACT, TORT OR OTHERWISE), EVEN IF SUCH HOLDER
 //// OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 //// 
-//// (C) Ericsson AB 2013. All Rights Reserved.
+//// (C) Ericsson AB 2005-2013. All Rights Reserved.
 //// 
 
 #include <stdio.h>
@@ -57,7 +57,7 @@
 
 // Removes comments in a .ppm file
 // (i.e., lines starting with #)
-// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2013. All Rights Reserved.
+// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2005-2013. All Rights Reserved.
 void removeComments(FILE *f1)
 {
 	int c;
@@ -72,7 +72,7 @@ void removeComments(FILE *f1)
 
 
 // Removes white spaces in a .ppm file
-// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2013. All Rights Reserved.
+// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2005-2013. All Rights Reserved.
 void removeSpaces(FILE *f1)
 {
 	int c;
@@ -99,7 +99,7 @@ void removeSpaces(FILE *f1)
 //
 // after that follows RGBRGBRGB...
 // 
-// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2013. All Rights Reserved.
+// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2005-2013. All Rights Reserved.
 bool fReadPPM(char *filename, int &width, int &height, unsigned char *&pixels, int targetbitrate)
 {
 	FILE *f1;
@@ -225,7 +225,7 @@ bool fReadPPM(char *filename, int &width, int &height, unsigned char *&pixels, i
 }
 
 // Write PPM 
-// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2013. All Rights Reserved.
+// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2005-2013. All Rights Reserved.
 bool fWritePPM(char *filename, int width, int height, unsigned char *pixels, int bitrate, bool reverse_y)
 {
 	FILE *fsave;
@@ -256,7 +256,7 @@ bool fWritePPM(char *filename, int width, int height, unsigned char *pixels, int
 }
 
 // WritePGM
-// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2013. All Rights Reserved.
+// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2005-2013. All Rights Reserved.
 bool fWritePGM(char *filename, int width, int height, unsigned char *pixels,bool reverse_y, int bitdepth)
 {
    FILE *f;
@@ -295,7 +295,7 @@ bool fWritePGM(char *filename, int width, int height, unsigned char *pixels,bool
  *---------
  * then follows RGBRGBRGBRGBRGB...
  */
-// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2013. All Rights Reserved.
+// NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2005-2013. All Rights Reserved.
 int fReadPGM(char *filename, int &width, int &height, unsigned char *&pixels, int wantedBitDepth)
 {
 	FILE *f;
