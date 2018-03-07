@@ -8203,7 +8203,7 @@ void compressBlockETC2Fast(uint8 *img, uint8* alphaimg, uint8 *imgdec,int width,
 		{
 			compressed1=etc1_word1;
 			compressed2=etc1_word2;
-			delete alphadec;
+			delete[] alphadec;
 			return;
 		}
 		//error_etc1=255*255*1000;
@@ -8219,7 +8219,7 @@ void compressBlockETC2Fast(uint8 *img, uint8* alphaimg, uint8 *imgdec,int width,
 			etc1_word1=tempword1;
 			etc1_word2=tempword2;
 		}
-		delete alphadec;
+		delete[] alphadec;
 		//drop out of this if, and test old T, H and planar modes (we have already returned if there are transparent pixels in this block)
 	}
 	else 
