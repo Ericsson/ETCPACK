@@ -247,6 +247,7 @@ KTX_header;
 static enum {GL_R=0x1903,GL_RG=0x8227,GL_RGB=0x1907,GL_RGBA=0x1908};
 #define GL_SRGB                                          0x8C40
 #define GL_SRGB8                                         0x8C41
+#define GL_SRGB_ALPHA                                    0x8C42
 #define GL_SRGB8_ALPHA8                                  0x8C43
 #define GL_ETC1_RGB8_OES                                 0x8d64
 #define GL_COMPRESSED_R11_EAC                            0x9270
@@ -15644,7 +15645,7 @@ void compressImageFile(uint8 *img, uint8 *alphaimg,int width,int height,char *ds
 			else if(format==ETC2PACKAGE_sRGBA_NO_MIPMAPS) 
 			{
 				halfbytes=2;
-				header.glBaseInternalFormat=GL_SRGB8_ALPHA8;
+				header.glBaseInternalFormat=GL_SRGB_ALPHA;
 				header.glInternalFormat=GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC;
 			}
 			else if(format==ETC2PACKAGE_RGBA1_NO_MIPMAPS) 
@@ -15654,7 +15655,7 @@ void compressImageFile(uint8 *img, uint8 *alphaimg,int width,int height,char *ds
 			}
 			else if(format==ETC2PACKAGE_sRGBA1_NO_MIPMAPS) 
 			{
-				header.glBaseInternalFormat=GL_SRGB8_ALPHA8;
+				header.glBaseInternalFormat=GL_SRGB_ALPHA;
 				header.glInternalFormat=GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2;
 			}
 			else if(format==ETC1_RGB_NO_MIPMAPS) 
