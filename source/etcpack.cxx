@@ -9453,21 +9453,35 @@ void uncompressFile(char *srcfile, uint8* &img, uint8 *&alphaimg, int& active_wi
 // NO WARRANTY --- SEE STATEMENT IN TOP OF FILE (C) Ericsson AB 2005-2013. All Rights Reserved.
 void writeOutputFile(char *dstfile, uint8* img, uint8* alphaimg, int width, int height) 
 {
-	char str[300];
+	int pid = GetCurrentProcessId();
+	//printf("pid %d\n", pid);
+	char str[2047];
+
+	char tmpppm[2047];
+	sprintf(tmpppm, "%dtmp.ppm", pid);
+	char alphaoutpgm[2047];
+	sprintf(alphaoutpgm, "%dalphaout.pgm", pid);
+	char delTmpFile[2047];
 
 	if(format!=ETC2PACKAGE_R_NO_MIPMAPS&&format!=ETC2PACKAGE_RG_NO_MIPMAPS) 
 	{
 		fWritePPM("tmp.ppm",width,height,img,8,false);
 		printf("Saved file tmp.ppm \n\n");
+		sprintf(delTmpFile, "del %s\n", tmpppm);
 	}
 	else if(format==ETC2PACKAGE_RG_NO_MIPMAPS) 
 	{
 		fWritePPM("tmp.ppm",width,height,img,16,false);
+		sprintf(delTmpFile, "del %s\n", tmpppm);
 	}
-	if(format==ETC2PACKAGE_RGBA_NO_MIPMAPS||format==ETC2PACKAGE_RGBA1_NO_MIPMAPS||format==ETC2PACKAGE_sRGBA_NO_MIPMAPS||format==ETC2PACKAGE_sRGBA1_NO_MIPMAPS)
-		fWritePGM("alphaout.pgm",width,height,alphaimg,false,8);
-	if(format==ETC2PACKAGE_R_NO_MIPMAPS)
-		fWritePGM("alphaout.pgm",width,height,alphaimg,false,16);
+	if (format == ETC2PACKAGE_RGBA_NO_MIPMAPS || format == ETC2PACKAGE_RGBA1_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA1_NO_MIPMAPS) {
+		sprintf(delTmpFile, "del %s\n", alphaoutpgm);
+		fWritePGM("alphaout.pgm", width, height, alphaimg, false, 8);
+	}
+	if (format == ETC2PACKAGE_R_NO_MIPMAPS) {
+		fWritePGM("alphaout.pgm", width, height, alphaimg, false, 16);
+		sprintf(delTmpFile, "del %s\n", alphaoutpgm);
+	}
 
 	// Delete destination file if it exists
 	if(fileExist(dstfile))
@@ -9480,7 +9494,8 @@ void writeOutputFile(char *dstfile, uint8* img, uint8* alphaimg, int width, int 
 	if(!strcmp(&dstfile[q],".ppm")&&format!=ETC2PACKAGE_R_NO_MIPMAPS) 
 	{
 		// Already a .ppm file. Just rename. 
-		sprintf(str,"move tmp.ppm %s\n",dstfile);
+		sprintf(str, "move %s %s\n", tmpppm, dstfile);
+		//sprintf(str,"move tmp.ppm %s\n",dstfile);
 		printf("Renaming destination file to %s\n",dstfile);
 	}
 	else
@@ -9512,18 +9527,19 @@ void writeOutputFile(char *dstfile, uint8* img, uint8* alphaimg, int width, int 
 		}
 		else if(format==ETC2PACKAGE_R_NO_MIPMAPS) 
 		{
-			sprintf(str,"magick convert alphaout.pgm %s\n",dstfile);
+			sprintf(str, "magick convert %s %s\n", alphaoutpgm, dstfile);
 			printf("Converting destination file from .pgm to %s\n",dstfile);
 		}
 		else 
 		{
-			sprintf(str,"magick convert tmp.ppm %s\n",dstfile);
+			sprintf(str, "magick convert %s %s\n", tmpppm, dstfile);
 			printf("Converting destination file from .ppm to %s\n",dstfile);
 		}
 	}
 	// Execute system call
 	system(str);
-	
+	system(delTmpFile);
+
 	free(img);
 	if(alphaimg!=NULL)
 		free(alphaimg);
