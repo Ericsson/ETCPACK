@@ -9465,21 +9465,22 @@ void writeOutputFile(char *dstfile, uint8* img, uint8* alphaimg, int width, int 
 
 	if(format!=ETC2PACKAGE_R_NO_MIPMAPS&&format!=ETC2PACKAGE_RG_NO_MIPMAPS) 
 	{
-		fWritePPM("tmp.ppm",width,height,img,8,false);
-		printf("Saved file tmp.ppm \n\n");
+		fWritePPM(tmpppm, width, height, img, 8, false);
+		printf("Saved file s \n\n", tmpppm);
 		sprintf(delTmpFile, "del %s\n", tmpppm);
 	}
 	else if(format==ETC2PACKAGE_RG_NO_MIPMAPS) 
 	{
-		fWritePPM("tmp.ppm",width,height,img,16,false);
+		fWritePPM(tmpppm, width, height, img, 16, false);
 		sprintf(delTmpFile, "del %s\n", tmpppm);
 	}
 	if (format == ETC2PACKAGE_RGBA_NO_MIPMAPS || format == ETC2PACKAGE_RGBA1_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA1_NO_MIPMAPS) {
+		
+		fWritePGM(alphaoutpgm, width, height, alphaimg, false, 8);
 		sprintf(delTmpFile, "del %s\n", alphaoutpgm);
-		fWritePGM("alphaout.pgm", width, height, alphaimg, false, 8);
 	}
 	if (format == ETC2PACKAGE_R_NO_MIPMAPS) {
-		fWritePGM("alphaout.pgm", width, height, alphaimg, false, 16);
+		fWritePGM(alphaoutpgm, width, height, alphaimg, false, 16);
 		sprintf(delTmpFile, "del %s\n", alphaoutpgm);
 	}
 
